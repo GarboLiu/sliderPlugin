@@ -1,0 +1,24 @@
+/**
+ * @Author   Garbo
+ * @DateTime 2015-07-07T16:10:43+0800
+ */
+*{margin:0;padding: 0;}
+ul li{list-style: none;}
+a{ text-decoration:none;}
+.dn{display: none;}
+.slider{width: 100%;background: #fff;height: 335px;overflow: hidden;position: relative;min-width: 1080px;}
+.bd{font-size: 0;position: absolute;width:1080px;left: 50%;margin-left: -540px;}
+.bd ul{width: 7840px;overflow: hidden;padding: 0;margin: 0;position:absolute; margin-left: -1080px;}
+.bd li{display: inline;}
+.bd img{width: 1080px;}
+
+.hd{position: absolute; bottom: 20px;z-index: 1; text-align: center;left: 0;width: 100%;color: transparent;height: 8px; overflow: hidden;}
+.hdli_nomal{display: inline; width: 8px; height: 8px; background:url(img/slider_btn.png) 0 0 no-repeat; background-size: 8px 8px; opacity: 0.3;margin-right: 8px;overflow: hidden;cursor: pointer;}
+.hdli_on{display: inline; width: 8px; height: 8px; background:url(img/slider_btn_on.png) 0 0 no-repeat; background-size: 8px 8px; margin-right: 8px;overflow: hidden;cursor: pointer;}
+.prev{position: absolute; left: 0; z-index: 1;height: 335px; width: 100%;left: -50%;margin-left: -540px;}
+.next{position: absolute; right: 0;z-index: 1;height: 335px; width: 100%;left: 50%;margin-left: 540px;}
+.black_bg{background: #000;opacity: 0.6;width: 100%; height: 100%;}
+.prev_a_nomal{ width:20px; height:36px; background:url(img/prev_nomal.png) 0 0 no-repeat;position: absolute;z-index: 1;right: 30px; bottom: 152.5px;}
+.next_a_nomal{ width:20px; height:36px; background:url(img/next_nomal.png) 0 0 no-repeat;position: absolute;z-index: 1;left: 30px; bottom: 152.5px;}
+a.prev_a_nomal:hover{background:url(img/prev_on.png) 0 0 no-repeat;}
+a.next_a_nomal:hover{background:url(img/next_on.png) 0 0 no-repeat;}
