@@ -30,8 +30,8 @@ function sliderPlugin(dataJson){
     this.li_distance = 0;
     this.flag = 0;
     this.arrowShow = json.arrowShow;
-    this.arrow_prev = null;
-    this.arrow_next = null;
+    this.arrow_prev = json.arrowElement[0];
+    this.arrow_next = json.arrowElement[1];
     this.init();
 }
 sliderPlugin.prototype.init = function(){
@@ -49,21 +49,21 @@ sliderPlugin.prototype.init = function(){
     hd.innerHTML = content;
     /*添加箭头*/
     if(_self.arrowShow){
-        var prev = document.createElement('div');  
-        _self.divElement.appendChild(prev);
-        _self.arrow_prev = prev;
-        prev.className = 'prev';
-        prev.innerHTML = '<div class="black_bg"></div><a class="prev_a_nomal dn"></a>'
-        prev.onclick = function(){
+        // var prev = document.createElement('div');  
+        // _self.divElement.appendChild(prev);
+        // _self.arrow_prev = prev;
+        // prev.className = 'prev';
+        // prev.innerHTML = '<div class="black_bg"></div><a class="prev_a_nomal dn"></a>'
+         _self.arrow_prev.onclick = function(){
         setTimeout(function(){_self.prevMoving()}, _self.fastTime);
         }
 
-        var next = document.createElement('div'); 
-        _self.divElement.appendChild(next);
-        _self.arrow_next = next;
-        next.className = 'next'
-        next.innerHTML = '<div class="black_bg"></div><a  class="next_a_nomal dn"></a>'
-        next.onclick = function(){
+        // var next = document.createElement('div'); 
+        // _self.divElement.appendChild(next);
+        // _self.arrow_next = next;
+        // next.className = 'next'
+        // next.innerHTML = '<div class="black_bg"></div><a  class="next_a_nomal dn"></a>'
+        _self.arrow_next.onclick = function(){
             setTimeout(function(){_self.nextMoving()}, _self.fastTime);
         }
 

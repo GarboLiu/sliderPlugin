@@ -14,6 +14,8 @@
                     <li><a href=""><img src="img/2.jpg" alt=""></a></li>
                     <li><a href=""><img src="img/3.jpg" alt=""></a></li>
                 </ul>
+               <div id="prev" class="prev"><div class="black_bg"></div><a class="prev_a_nomal dn"></a></div>
+               <div id="next" class="next"><div class="black_bg"></div><a  class="next_a_nomal dn"></a></div>
             </div>
         </div>
         <script src="sliderPlugin.js"></script>
@@ -27,7 +29,8 @@
                 distanceMax : 1080,//中间那幅幻灯片的宽度(默认值1080)
                 slowTime : 1500,//幻灯片停顿时间(默认值1500ms)
                 fastTime : 30,//幻灯片移动时间(默认值35ms)
-                arrowShow : true //前后箭头是否出现(默认值true)
+                arrowShow : true ,//前后箭头是否出现(默认值true)
+                arrowElement : [prev,next]
 
             });
         }
