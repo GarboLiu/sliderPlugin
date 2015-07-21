@@ -8,7 +8,8 @@ function sliderPlugin(dataJson){
         distanceMax : 1080,//中间那幅幻灯片的宽度
         slowTime : 1500,//幻灯片停顿时间
         fastTime : 35,//幻灯片移动时间
-        arrowShow : true //前后箭头是否出现
+        arrowShow : true, //前后箭头是否出现
+        hdShow : true
     }
     for(var key in dataJson){
         json[key] = dataJson[key];
@@ -23,6 +24,8 @@ function sliderPlugin(dataJson){
     this.divElement = json.divElement;//外层div的id
     this.ulElement = json.ulElement;//ul的id
     this.num = this.ulElement.children.length;//幻灯片个数
+    this.hdShow = json.hdShow;
+    this.hdElement = json.hdElement;
     this.li_onClassName = json.li_onClassName;//
     this.li_normalClassName = json.li_normalClassName;
     this.hd_ul_idName = this.divElement.id + 'hd_ul';
@@ -38,15 +41,18 @@ sliderPlugin.prototype.init = function(){
     var _self = this;
     _self.ulElement.innerHTML = _self.ulElement.innerHTML + _self.ulElement.innerHTML;
     /*添加小圆点*/
-    var hd = document.createElement('div');  
-    _self.divElement.appendChild(hd);
-    hd.className='hd';
-    var content = '<ul id="'+_self.hd_ul_idName+'">' ;
-    for(var i=1,len = _self.num; i<=len; i++){
-        content += '<li class="'+_self.li_normalClassName+'">'+i+'</li>'
-    } 
-    content += '</ul>'
-    hd.innerHTML = content;
+    if(_self.hdShow){
+        var content = '<ul id="'+_self.hd_ul_idName+'">' ;
+        for(var i=1,len = _self.num; i<=len; i++){
+            content += '<li class="'+_self.li_normalClassName+'">'+i+'</li>'
+        } 
+        content += '</ul>'
+        _self.hdElement.innerHTML = content;
+        _self.hd_ul = $_id(_self.hd_ul_idName);
+        _self.hd_ul.firstChild.className = _self.li_onClassName;
+        _self.hd_ulOnclick();
+    }
+
     /*添加箭头*/
     if(_self.arrowShow){
         // var prev = document.createElement('div');  
@@ -54,8 +60,9 @@ sliderPlugin.prototype.init = function(){
         // _self.arrow_prev = prev;
         // prev.className = 'prev';
         // prev.innerHTML = '<div class="black_bg"></div><a class="prev_a_nomal dn"></a>'
-         _self.arrow_prev.onclick = function(){
-        setTimeout(function(){_self.prevMoving()}, _self.fastTime);
+            _self.arrow_prev.onclick = function(){
+            setTimeout(function(){_self.prevMoving()}, _self.fastTime);
+
         }
 
         // var next = document.createElement('div'); 
@@ -68,9 +75,6 @@ sliderPlugin.prototype.init = function(){
         }
 
     }
-    _self.hd_ul = $_id(_self.hd_ul_idName);
-    _self.hd_ul.firstChild.className = _self.li_onClassName;
-    _self.hd_ulOnclick();
     _self.sliderMouseAction();
     _self.sliderMove1 = setTimeout(function(){_self.sliderMove()}, _self.slowTime);
 }

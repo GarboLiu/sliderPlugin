@@ -1,7 +1,4 @@
 var gulp = require("gulp"),
-    jshint = require('gulp-jshint'),
-    cache = require('gulp-cache'),
-    imagemin = require('gulp-imagemin'),
     minifycss = require("gulp-minify-css"), // CSS压缩
     uglify = require("gulp-uglify"),        // js压缩
     concat = require("gulp-concat"),        // 合并文件

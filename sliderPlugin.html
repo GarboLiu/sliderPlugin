@@ -14,9 +14,10 @@
                     <li><a href=""><img src="img/2.jpg" alt=""></a></li>
                     <li><a href=""><img src="img/3.jpg" alt=""></a></li>
                 </ul>
-               <div id="prev" class="prev"><div class="black_bg"></div><a class="prev_a_nomal dn"></a></div>
-               <div id="next" class="next"><div class="black_bg"></div><a  class="next_a_nomal dn"></a></div>
+                <div id="prev" class="prev"><div class="black_bg"></div><a class="prev_a_nomal dn"></a></div>
+                <div id="next" class="next"><div class="black_bg"></div><a  class="next_a_nomal dn"></a></div>
             </div>
+            <div class="hd" id="hd_div"></div>
         </div>
         <script src="sliderPlugin.js"></script>
         <script>
@@ -24,6 +25,8 @@
             var sliderPlugin1 = new sliderPlugin({
                 divElement : slider,//最外层div的id(必填)
                 ulElement    : slider_pic,//ul的id(必填)
+                hdShow : true, //
+                hdElement  : hd_div,//
                 li_onClassName : 'hdli_on', //小圆点选中样式(必填)
                 li_normalClassName : 'hdli_nomal',//小圆点普通样式名称(必填)
                 distanceMax : 1080,//中间那幅幻灯片的宽度(默认值1080)
