@@ -3,6 +3,7 @@ var gulp = require("gulp"),
     uglify = require("gulp-uglify"),        // js压缩
     concat = require("gulp-concat"),        // 合并文件
     rename = require("gulp-rename"),        // 重命名
+    jshint = require("gulp-jshint"),
     notify = require('gulp-notify');      
 
 // Styles

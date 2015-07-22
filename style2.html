@@ -1,0 +1,54 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>纯JS全屏幻灯片滚动</title>
+        <style>
+*{margin:0;padding: 0;}
+ul li{list-style: none;}
+a{ text-decoration:none;}
+body{background: #000;}
+.dn{display: none;}
+.case_box{width: 600px;border-radius: 10px;height: 350px;background: #fff;margin: auto;text-align: center;}
+.case_box_btn{width: 600px;margin: auto;position: relative;top: 50%;margin-top: 30px;}
+.prev_a_nomal{width: 55px;height: 45px;background:url(img/s3_icon01.png) no-repeat;position: absolute;display: block;left: 80px;cursor: pointer}
+.next_a_nomal{width: 55px;height: 45px;background:url(img/s3_icon01.png) no-repeat;position: absolute;display: block;right:80px;top: 0;cursor: pointer;    -moz-transform:scaleX(-1);-webkit-transform:scaleX(-1);-o-transform:scaleX(-1);transform:scaleX(-1);/*IE*/filter:FlipH;}
+.slider{background: #fff;overflow: hidden;position: relative;}
+.bd{font-size: 0;position: absolute;width:600px;left: 50%;margin-left: -300px;text-align: center;}
+.bd ul{overflow: hidden;padding: 0;margin: 0;position:absolute; margin-left: -600px;}
+.bd li{display: inline-block;width: 600px;}
+.bd img{width: 550px;height:270px;margin-top: 40px;}
+        </style>
+    </head>
+    <body>
+        <div class="slider case_box" id="case_box">
+            <div class="bd" >
+                <ul id="slider_pic" class="case_box">
+                    <li><a href=""><img src="img/4.jpg" alt=""></a></li>
+                    <li><a href=""><img src="img/3.jpg" alt=""></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="case_box_btn">
+            <div class="prev_a_nomal" id="prev"></div>
+            <div class="next_a_nomal" id="next"></div>
+        </div>
+        <div class="hd" id="hd_div"></div>
+        <script src="sliderPlugin.js"></script>
+        <script>
+        window.onload=function(){
+           var sliderPlugin1 = new sliderPlugin({
+                divElement : case_box,//最外层div的id(必填)
+                ulElement    : slider_pic,//ul的id(必填)
+                hdShow : false, //小圆点是否出现(默认值为true)
+                arrowShow : true ,//前后箭头是否出现(默认值true)
+                distanceMax : 600,//中间那幅幻灯片的宽度(默认值1080)
+                slowTime : 2000,//幻灯片停顿时间(默认值1500ms)
+                fastTime : 30,//幻灯片移动时间(默认值35ms)
+                arrowElement : [prev,next],//箭头id[前箭头，后箭头]
+                arrowInside : false //箭头位置，位于图片内部为true(默认值),外部为false
+            });
+        }
+        </script>
+    </body>
+</html>

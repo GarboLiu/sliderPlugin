@@ -1,0 +1,36 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>纯JS全屏幻灯片滚动</title>
+        <link rel="stylesheet" href="sliderPlugin.css">
+    </head>
+    <body>
+        <div class="slider" id="slider">
+            <div class="bd" >
+                <ul id="slider_pic">
+                    <li><a href=""><img src="img/4.jpg" alt=""></a></li>
+                    <li><a href=""><img src="img/1.jpg" alt=""></a></li>
+                    <li><a href=""><img src="img/2.jpg" alt=""></a></li>
+                    <li><a href=""><img src="img/3.jpg" alt=""></a></li>
+                </ul>
+                <div id="prev" class="prev"><div class="black_bg"></div><a class="prev_a_nomal dn"></a></div>
+                <div id="next" class="next"><div class="black_bg"></div><a  class="next_a_nomal dn"></a></div>
+            </div>
+            <div class="hd" id="hd_div"></div>
+        </div>
+        <script src="sliderPlugin.js"></script>
+        <script>
+        window.onload = function() {
+            var sliderPlugin1 = new sliderPlugin({
+                divElement: slider, //最外层div的id(必填)
+                ulElement: slider_pic, //ul的id(必填)
+                hdElement: hd_div, //小圆点的外层标签的id(必填)
+                li_onClassName: 'hdli_on', //小圆点选中样式(必填)
+                li_normalClassName: 'hdli_nomal', //小圆点普通样式名称(必填)
+                arrowElement: [prev, next] //箭头id[前箭头，后箭头]
+            });
+        }
+        </script>
+    </body>
+</html>

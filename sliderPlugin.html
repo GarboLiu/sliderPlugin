@@ -25,16 +25,15 @@
             var sliderPlugin1 = new sliderPlugin({
                 divElement : slider,//最外层div的id(必填)
                 ulElement    : slider_pic,//ul的id(必填)
-                hdShow : true, //
-                hdElement  : hd_div,//
+                hdShow : true, //小圆点是否出现(默认值为true)
+                hdElement  : hd_div,//小圆点的外层标签的id
                 li_onClassName : 'hdli_on', //小圆点选中样式(必填)
                 li_normalClassName : 'hdli_nomal',//小圆点普通样式名称(必填)
                 distanceMax : 1080,//中间那幅幻灯片的宽度(默认值1080)
                 slowTime : 1500,//幻灯片停顿时间(默认值1500ms)
                 fastTime : 30,//幻灯片移动时间(默认值35ms)
                 arrowShow : true ,//前后箭头是否出现(默认值true)
-                arrowElement : [prev,next]
-
+                arrowElement : [prev,next]//箭头id[前箭头，后箭头]
             });
         }
         </script>

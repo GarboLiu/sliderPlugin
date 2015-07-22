@@ -9,7 +9,9 @@ function sliderPlugin(dataJson){
         slowTime : 1500,//幻灯片停顿时间
         fastTime : 35,//幻灯片移动时间
         arrowShow : true, //前后箭头是否出现
-        hdShow : true
+        hdShow : true, //小蓝点是否出现
+        arrowInside : true //箭头位置，位于图片内部为true(默认值),外部为false
+
     }
     for(var key in dataJson){
         json[key] = dataJson[key];
@@ -25,20 +27,28 @@ function sliderPlugin(dataJson){
     this.ulElement = json.ulElement;//ul的id
     this.num = this.ulElement.children.length;//幻灯片个数
     this.hdShow = json.hdShow;
-    this.hdElement = json.hdElement;
-    this.li_onClassName = json.li_onClassName;//
-    this.li_normalClassName = json.li_normalClassName;
+    if(this.hdShow){
+        this.hdElement = json.hdElement;//小圆点外层标签的id
+        this.li_onClassName = json.li_onClassName;//小圆点选中样式
+        this.li_normalClassName = json.li_normalClassName;//小圆点普通样式
+    }
+
     this.hd_ul_idName = this.divElement.id + 'hd_ul';
     this.li_distanceMax = 0;
     this.li_distance = 0;
     this.flag = 0;
     this.arrowShow = json.arrowShow;
-    this.arrow_prev = json.arrowElement[0];
-    this.arrow_next = json.arrowElement[1];
+    if(this.arrowShow){
+        this.arrowInside = json.arrowInside;
+        this.arrow_prev = json.arrowElement[0];
+        this.arrow_next = json.arrowElement[1];
+    }
+
     this.init();
 }
 sliderPlugin.prototype.init = function(){
     var _self = this;
+    _self.ulElement.style.width = _self.distanceMax*_self.num*2+'px';
     _self.ulElement.innerHTML = _self.ulElement.innerHTML + _self.ulElement.innerHTML;
     /*添加小圆点*/
     if(_self.hdShow){
@@ -60,9 +70,14 @@ sliderPlugin.prototype.init = function(){
         // _self.arrow_prev = prev;
         // prev.className = 'prev';
         // prev.innerHTML = '<div class="black_bg"></div><a class="prev_a_nomal dn"></a>'
-            _self.arrow_prev.onclick = function(){
-            setTimeout(function(){_self.prevMoving()}, _self.fastTime);
-
+        _self.arrow_prev.onclick = function(){
+            if(_self.arrowInside){
+                setTimeout(function(){_self.prevMoving()}, _self.fastTime); 
+            }else{
+                clearTimeout(_self.sliderMove1);
+                setTimeout(function(){_self.prevMoving()}, _self.fastTime);
+                _self.sliderMove1 = setTimeout(function(){_self.sliderMove()}, _self.slowTime); 
+            }
         }
 
         // var next = document.createElement('div'); 
@@ -71,7 +86,13 @@ sliderPlugin.prototype.init = function(){
         // next.className = 'next'
         // next.innerHTML = '<div class="black_bg"></div><a  class="next_a_nomal dn"></a>'
         _self.arrow_next.onclick = function(){
-            setTimeout(function(){_self.nextMoving()}, _self.fastTime);
+            if(_self.arrowInside){
+                setTimeout(function(){_self.nextMoving()}, _self.fastTime);
+            }else{
+                clearTimeout(_self.sliderMove1);
+                setTimeout(function(){_self.nextMoving()}, _self.fastTime);
+                _self.sliderMove1 = setTimeout(function(){_self.sliderMove()}, _self.slowTime);
+            }      
         }
 
     }
@@ -104,15 +125,18 @@ sliderPlugin.prototype.sliderMove = function(){
             lis_index = mlint/distanceMax-1;
             //console.log('lis_index'+lis_index);
             //切换小圆点
-            var lis = _self.hd_ul.getElementsByTagName("li");
+            if(_self.hdShow){
+                var lis = _self.hd_ul.getElementsByTagName("li");
 
-            if(lis_index != 0){
-                lis[lis_index-1].className = _self.li_normalClassName;
-                lis[lis_index].className = _self.li_onClassName;
-            }else{
-                lis[lis.length-1].className = _self.li_normalClassName;
-                lis[0].className = _self.li_onClassName;
+                if(lis_index != 0){
+                    lis[lis_index-1].className = _self.li_normalClassName;
+                    lis[lis_index].className = _self.li_onClassName;
+                }else{
+                    lis[lis.length-1].className = _self.li_normalClassName;
+                    lis[0].className = _self.li_onClassName;
+                }     
             }
+            
             _self.sliderMove1 = setTimeout(function(){_self.sliderMove()}, _self.slowTime);
         }
     }else{
@@ -193,13 +217,15 @@ sliderPlugin.prototype.prevMoving = function(){
         _self.distance = 0;
         lis_index = (mlint+_self.distanceMax)/_self.distanceMax-1;
         //切换小圆点
-        var lis = _self.hd_ul.getElementsByTagName("li");
-        if(lis_index != 0){
-            lis[lis_index-1].className = _self.li_onClassName;
-            lis[lis_index].className = _self.li_normalClassName;
-        }else{
-            lis[lis.length-1].className = _self.li_onClassName;
-            lis[0].className = _self.li_normalClassName;
+        if (_self.hdShow) {
+            var lis = _self.hd_ul.getElementsByTagName("li");
+            if(lis_index != 0){
+                lis[lis_index-1].className = _self.li_onClassName;
+                lis[lis_index].className = _self.li_normalClassName;
+            }else{
+                lis[lis.length-1].className = _self.li_onClassName;
+                lis[0].className = _self.li_normalClassName;
+            }
         }
     }
 }
@@ -226,14 +252,17 @@ sliderPlugin.prototype.nextMoving = function(){
         _self.distance = 0;
         lis_index = mlint/distanceMax-1;
         //切换小圆点
-        var lis = _self.hd_ul.getElementsByTagName("li");
-        if(lis_index != 4){
-            lis[lis_index-1].className = _self.li_normalClassName;
-            lis[lis_index].className = _self.li_onClassName;
-        }else{
-            lis[lis.length-1].className = _self.li_normalClassName;
-            lis[0].className = _self.li_onClassName;
+        if(_self.hdShow){
+            var lis = _self.hd_ul.getElementsByTagName("li");
+            if(lis_index != _self.num){
+                lis[lis_index-1].className = _self.li_normalClassName;
+                lis[lis_index].className = _self.li_onClassName;
+            }else{
+                lis[lis.length-1].className = _self.li_normalClassName;
+                lis[0].className = _self.li_onClassName;
+            }
         }
+
     }
 }
 /*鼠标事件触发幻灯片的事件*/
@@ -243,10 +272,16 @@ sliderPlugin.prototype.sliderMouseAction = function(){
 
     _self.divElement.onmouseover = function(){
         clearTimeout(_self.sliderMove1);
-        // //console.log("鼠标进入");
+        //console.log("鼠标进入");
         if(_self.arrowShow){
-            _self.arrow_next.getElementsByTagName("a")[0].style.display = "inline";
-             _self.arrow_prev.getElementsByTagName("a")[0].style.display = "inline";
+            if(_self.arrow_next.getElementsByTagName("a")[0]){
+                _self.arrow_next.getElementsByTagName("a")[0].style.display = "inline";
+
+            }
+            if(_self.arrow_prev.getElementsByTagName("a")[0]){
+                _self.arrow_prev.getElementsByTagName("a")[0].style.display = "inline";
+            }
+            
         }
         var ml = getDefaultStyle(slider_pic, "marginLeft")
         var mlInt = getMarginLeftInt(getDefaultStyle(_self.ulElement, "marginLeft"));
@@ -255,12 +290,14 @@ sliderPlugin.prototype.sliderMouseAction = function(){
         if(distance == 0){
             return;
         }else{
-            var index = getClass("li", _self.li_onClassName,_self.hd_ul_idName)[0].innerHTML;
+           
             _self.distance = 0;
             slider_pic.style.marginLeft = "-"+_self.distanceMax*Math.round(mlInt/_self.distanceMax)+"px"; 
-            if(Math.round(mlInt/_self.distanceMax) != index){
+            if(_self.hdShow){
+                var index = getClass("li", _self.li_onClassName,_self.hd_ul_idName)[0].innerHTML;
+                if(Math.round(mlInt/_self.distanceMax) != index){
                 var lis = _self.hd_ul.getElementsByTagName("li");
-                if(index != 4){
+                if(index != _self.num){
                     lis[index-1].className = _self.li_normalClassName;
                     lis[index].className = _self.li_onClassName;
                 }else{
@@ -268,6 +305,8 @@ sliderPlugin.prototype.sliderMouseAction = function(){
                     lis[0].className = _self.li_onClassName;
                 }
             }
+            }
+            
         } 
     }
     _self.divElement.onmouseout = function(){
@@ -278,16 +317,22 @@ sliderPlugin.prototype.sliderMouseAction = function(){
         if(distance == 0){
             _self.sliderMove1 = setTimeout(function(){_self.sliderMove()}, _self.slowTime);
         }else{
-            var index = getClass("li", _self.li_onClassName,_self.hd_ul_idName)[0].innerHTML;
-            _self.distance = 0;
-            slider_pic.style.marginLeft = "-"+_self.distanceMax*parseFloat(index)+"px"; 
+            if(_self.hdShow){
+                var index = getClass("li", _self.li_onClassName,_self.hd_ul_idName)[0].innerHTML;
+                _self.distance = 0;
+                slider_pic.style.marginLeft = "-"+_self.distanceMax*parseFloat(index)+"px"; 
+            }
             //console.log(ml+"   "+mlInt+"  "+distance+"   "+slider_pic.style.marginLeft);
             //console.log(slider_pic)
         } 
         //console.log("鼠标移出");
         if(_self.arrowShow){
-        _self.arrow_next.getElementsByTagName("a")[0].style.display = "none";
-        _self.arrow_prev.getElementsByTagName("a")[0].style.display = "none";
+            if(_self.arrow_next.getElementsByTagName("a")[0]){
+                _self.arrow_next.getElementsByTagName("a")[0].style.display = "none"; 
+            }
+            if(_self.arrow_prev.getElementsByTagName("a")[0]){
+               _self.arrow_prev.getElementsByTagName("a")[0].style.display = "none";
+            }
         }
     }
 }
