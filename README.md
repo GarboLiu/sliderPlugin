@@ -1,6 +1,6 @@
 # sliderPlugin
 纯JS幻灯片无缝滚动，不依赖JQuery。
-<img src="img/4.jpg" alt="">  
+<img src="img/show.png" alt="">  
 ##快速上手
 ###HTML
 ###
