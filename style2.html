@@ -7,46 +7,49 @@
 *{margin:0;padding: 0;}
 ul li{list-style: none;}
 a{ text-decoration:none;}
-body{background: #000;}
 .dn{display: none;}
-.case_box{width: 600px;border-radius: 10px;height: 350px;background: #fff;margin: auto;text-align: center;}
-.case_box_btn{width: 600px;margin: auto;position: relative;top: 50%;margin-top: 30px;}
-.prev_a_nomal{width: 55px;height: 45px;background:url(img/s3_icon01.png) no-repeat;position: absolute;display: block;left: 80px;cursor: pointer}
-.next_a_nomal{width: 55px;height: 45px;background:url(img/s3_icon01.png) no-repeat;position: absolute;display: block;right:80px;top: 0;cursor: pointer;    -moz-transform:scaleX(-1);-webkit-transform:scaleX(-1);-o-transform:scaleX(-1);transform:scaleX(-1);/*IE*/filter:FlipH;}
-.slider{background: #fff;overflow: hidden;position: relative;}
-.bd{font-size: 0;position: absolute;width:600px;left: 50%;margin-left: -300px;text-align: center;}
-.bd ul{overflow: hidden;padding: 0;margin: 0;position:absolute; margin-left: -600px;}
-.bd li{display: inline-block;width: 600px;}
-.bd img{width: 550px;height:270px;margin-top: 40px;}
+
+.slider{background: #fff;overflow: hidden;position: relative;width: 100%;height: 600px;}
+.bd{font-size: 0;position: absolute;left: 50%;width:1960px;margin-left: -980px;}
+.bd ul{overflow: hidden;padding: 0;margin: 0;position:absolute;margin-left: -1960px;}
+.bd li{display: inline;}
+.bd img{width: 1960px;}
+
+.hd{position: absolute; bottom: 10px;z-index: 1; text-align: center;left: 0;width: 100%;color: transparent;height: 15px; overflow: hidden;}
+.hdli_nomal, .hdli_on{display: inline-block; width: 15px; height: 15px;margin-right: 15px;overflow: hidden;cursor: pointer;border-radius: 50%}
+.hdli_nomal{background:#777;}
+.hdli_on{background:red;}
         </style>
     </head>
     <body>
-        <div class="slider case_box" id="case_box">
-            <div class="bd" >
-                <ul id="slider_pic" class="case_box">
+
+        <div class="slider" id="slider">
+            <div class="bd">
+                <ul id="slider_pic">
                     <li><a href=""><img src="img/4.jpg" alt=""></a></li>
+                    <li><a href=""><img src="img/1.jpg" alt=""></a></li>
+                    <li><a href=""><img src="img/2.jpg" alt=""></a></li>
                     <li><a href=""><img src="img/3.jpg" alt=""></a></li>
                 </ul>
+                <div id="prev" class="prev"><div class="black_bg"></div><a class="prev_a_nomal dn"></a></div>
+                <div id="next" class="next"><div class="black_bg"></div><a  class="next_a_nomal dn"></a></div>
             </div>
+            <div class="hd" id="hd_div"></div>
         </div>
-        <div class="case_box_btn">
-            <div class="prev_a_nomal" id="prev"></div>
-            <div class="next_a_nomal" id="next"></div>
-        </div>
-        <div class="hd" id="hd_div"></div>
         <script src="sliderPlugin.js"></script>
         <script>
-        window.onload=function(){
-           var sliderPlugin1 = new sliderPlugin({
-                divElement : case_box,//最外层div的id(必填)
-                ulElement    : slider_pic,//ul的id(必填)
-                hdShow : false, //小圆点是否出现(默认值为true)
-                arrowShow : true ,//前后箭头是否出现(默认值true)
-                distanceMax : 600,//中间那幅幻灯片的宽度(默认值1080)
-                slowTime : 2000,//幻灯片停顿时间(默认值1500ms)
-                fastTime : 30,//幻灯片移动时间(默认值35ms)
-                arrowElement : [prev,next],//箭头id[前箭头，后箭头]
-                arrowInside : false //箭头位置，位于图片内部为true(默认值),外部为false
+        window.onload = function() {
+            var sliderPlugin1 = new sliderPlugin({
+                divElement: slider, //最外层div的id(必填)
+                ulElement: slider_pic, //ul的id(必填)
+                hdShow: true, //小圆点是否出现(默认值为true)
+                hdElement: hd_div, //小圆点的外层标签的id
+                li_onClassName: 'hdli_on', //小圆点选中样式(必填)
+                li_normalClassName: 'hdli_nomal', //小圆点普通样式名称(必填)
+                distanceMax: 1960, //中间那幅幻灯片的宽度(默认值1080)
+                slowTime: 1500, //幻灯片停顿时间(默认值1500ms)
+                fastTime: 40, //幻灯片移动时间(默认值35ms)
+                arrowShow: false, //前后箭头是否出现(默认值true)
             });
         }
         </script>
