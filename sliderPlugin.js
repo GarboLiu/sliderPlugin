@@ -273,7 +273,7 @@ sliderPlugin.prototype.sliderMouseAction = function(){
     _self.divElement.onmouseover = function(){
         clearTimeout(_self.sliderMove1);
         //console.log("鼠标进入");
-        if(_self.arrowShow){
+        if(_self.arrowShow&&_self.arrowInside){
             if(_self.arrow_next.getElementsByTagName("a")[0]){
                 _self.arrow_next.getElementsByTagName("a")[0].style.display = "inline";
 
@@ -326,7 +326,7 @@ sliderPlugin.prototype.sliderMouseAction = function(){
             //console.log(slider_pic)
         } 
         //console.log("鼠标移出");
-        if(_self.arrowShow){
+        if(_self.arrowShow&&_self.arrowInside){
             if(_self.arrow_next.getElementsByTagName("a")[0]){
                 _self.arrow_next.getElementsByTagName("a")[0].style.display = "none"; 
             }
